@@ -4,16 +4,21 @@
   "description": "An app for retrieving world cup info",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/mocha/bin/_mocha ./app/tests/test.js"
   },
   "author": "dgipps@gmail.com",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "method-override": "^2.3.10",
+    "mocha": "^5.2.0",
     "mongoose": "^5.1.7",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "should": "^13.2.1",
+    "sinon": "^6.0.1",
+    "sinon-mongoose": "^2.1.1"
   }
 }
