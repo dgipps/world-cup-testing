@@ -17,16 +17,19 @@ app.use(methodOverride());
 require('./router/router')(app);
 
 var db;
+var server;
 
 if(process.env.NODE_ENV === "test"){
 	db = mongoose.connect(config.test_db);
-	app.listen(config.test_port, function(err){
-	  if(err) throw err;
-	  console.log("App listening on port "+config.test_port);
-	});
+	if (!module.parent) {
+	    server = app.listen(config.test_port, function(err){
+	        if(err) throw err;
+	        console.log("App listening on port "+config.test_port);
+	    });
+    }
 } else {
     db = mongoose.connect(config.db);
-    app.listen(config.port, function (err) {
+    server = app.listen(config.port, function (err) {
         if (err) throw err;
         console.log("App listening on port " + config.port);
     });
@@ -36,4 +39,9 @@ mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open to ' + config.db);
 });
 
+function stop() {
+    if (!module.parent) server.close();
+}
+
 module.exports = app;
+module.exports.stop = stop;
