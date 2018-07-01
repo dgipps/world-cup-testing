@@ -4,7 +4,7 @@
   "description": "An app for retrieving world cup info",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/_mocha ./app/tests/test.js"
+    "test": "NODE_ENV=test node_modules/mocha/bin/_mocha ./app/tests/test.js"
   },
   "author": "dgipps@gmail.com",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "morgan": "^1.9.0",
     "should": "^13.2.1",
     "sinon": "^6.0.1",
-    "sinon-mongoose": "^2.1.1"
+    "sinon-mongoose": "^2.1.1",
+    "supertest": "^3.1.0"
   }
 }

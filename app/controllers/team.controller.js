@@ -8,20 +8,20 @@ var TeamCtrl = function(Team){
 		var newTeam = new Team(req.body);
 		newTeam.save(function(err, Team){
 			if(err){
-				res.json({status: false, error: err.message});
+				res.json({error: err.message});
 				return;
 			}
-			res.json({status: true, Team: Team});
+			res.json({Teams: Team});
 		});
 	}
 
 	TeamObj.GetTeam = function(req, res, next){
 		Team.find(function(err, Teams){
 			if(err) {
-				res.json({status: false, error: "Something went wrong"});
+				res.json({error: "Something went wrong"});
 				return
 			}
-			res.json({status: true, Team: Teams});
+			res.json({Teams: Teams});
 		});
 	}
 

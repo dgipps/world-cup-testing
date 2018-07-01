@@ -1,1 +1,2 @@
-require('./controllers/team.controller.test.js');
+require('./controllers/team.controller.test');
+require('./integration/team.integration.test');
