@@ -26,29 +26,29 @@ describe('Team API tests', function() {
             });
     });
 
-    it('post should create a team', function(done) {
-        request
-            .post('/api/team')
-            .send({
-                country: 'Iceland',
-                fifa_code: 'ISL',
-                group_id: 4,
-                group_letter: 'D',
-             })
-            .set('Accept', 'application/json')
-            .expect(200)
-            .end(function(err, res) {
+it('post should create a team', function(done) {
+    request
+        .post('/api/team')
+        .send({
+            country: 'Iceland',
+            fifa_code: 'ISL',
+            group_id: 4,
+            group_letter: 'D',
+         })
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+            if (err) return done(err);
+            var query = Team.where({ country: 'Iceland' });
+            query.findOne(function(err, team) {
                 if (err) return done(err);
-                var query = Team.where({ country: 'Iceland' });
-                query.findOne(function(err, team) {
-                    if (err) return done(err);
-                    expect(team.fifa_code).to.be.equal('ISL');
-                    expect(team.group_id).to.be.equal(4);
-                    expect(team.group_letter).to.be.equal('D');
-                    done()
-                });
+                expect(team.fifa_code).to.be.equal('ISL');
+                expect(team.group_id).to.be.equal(4);
+                expect(team.group_letter).to.be.equal('D');
+                done()
             });
-    });
+        });
+});
 
     after((done) => {
         mongoose.connection.close(() => {
