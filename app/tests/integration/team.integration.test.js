@@ -3,6 +3,8 @@ var chai = require('chai');
 var request = require('supertest');
 var mongoose = require('mongoose');
 
+var Team = require('../../models/team.model');
+
 request = request(app);
 var expect = chai.expect;
 
@@ -37,9 +39,15 @@ describe('Team API tests', function() {
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
-                done();
+                var query = Team.where({ country: 'Iceland' });
+                query.findOne(function(err, team) {
+                    if (err) return done(err);
+                    expect(team.fifa_code).to.be.equal('ISL');
+                    expect(team.group_id).to.be.equal(4);
+                    expect(team.group_letter).to.be.equal('D');
+                    done()
+                });
             });
-
     });
 
     after((done) => {
