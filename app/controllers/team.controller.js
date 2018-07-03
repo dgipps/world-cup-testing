@@ -11,6 +11,7 @@ var TeamCtrl = function(Team){
 				res.json({error: err.message});
 				return;
 			}
+			res.status(201)
 			res.json({teams: Team});
 		});
 	}
@@ -18,10 +19,20 @@ var TeamCtrl = function(Team){
 	TeamObj.GetTeam = function(req, res, next){
 		Team.find().exec(function(err, Teams){
 			if(err) {
-				res.json({error: "Something went wrong"});
+				res.status(400)
+                return
+            }
+			res.json({teams: Teams});
+		});
+	}
+
+	TeamObj.DeleteTeam = function(req, res, next){
+		Team.remove({fifa_code: req.body.fifa_code }, function(err, teams){
+			if(err) {
+				res.status(400)
 				return
 			}
-			res.json({teams: Teams});
+			res.json();
 		});
 	}
 
