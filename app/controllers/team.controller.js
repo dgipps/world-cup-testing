@@ -11,17 +11,17 @@ var TeamCtrl = function(Team){
 				res.json({error: err.message});
 				return;
 			}
-			res.json({Teams: Team});
+			res.json({teams: Team});
 		});
 	}
 
 	TeamObj.GetTeam = function(req, res, next){
-		Team.find(function(err, Teams){
+		Team.find().exec(function(err, Teams){
 			if(err) {
 				res.json({error: "Something went wrong"});
 				return
 			}
-			res.json({Teams: Teams});
+			res.json({teams: Teams});
 		});
 	}
 

@@ -20,7 +20,7 @@ describe('Team API tests', function() {
         request
             .get('/api/team')
             .end(function(err, res) {
-                expect(res.body).to.deep.equal({Teams: []});
+                expect(res.body).to.deep.equal({teams: []});
                 expect(res.statusCode).to.equal(200);
                 done();
             });
