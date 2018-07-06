@@ -36,7 +36,7 @@ it('post should create a team', function(done) {
             group_letter: 'D',
          })
         .set('Accept', 'application/json')
-        .expect(200)
+        .expect(201)
         .end(function(err, res) {
             if (err) return done(err);
             var query = Team.where({ country: 'Iceland' });
