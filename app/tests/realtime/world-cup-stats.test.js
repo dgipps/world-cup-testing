@@ -22,12 +22,9 @@ describe('World Cup Stats testing', function () {
         getMatchesStub.restore();
     });
 
-    it('getCountryStats returns stats', function (done) {
-        getCountryStats('FRA')
-            .then(function(stats) {
-                expect(stats.wins).to.equal(3);
-                expect(stats.goals).to.equal(7);
-                done();
-            });
+    it('getCountryStats returns stats', function () {
+        var stats = getCountryStats(MOCK_MATCHES_JSON, 'FRA')
+        expect(stats.wins).to.equal(3);
+        expect(stats.goals).to.equal(7);
     });
 });

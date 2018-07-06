@@ -15,16 +15,11 @@ var getNumberOfGoals = function(data, fifa_code) {
         return goals + new_goals;
     }, 0)
 }
-var getCountryStats = function(fifa_code) {
-    return new Promise(function(resolve, reject) {
-        matches.getMatches()
-            .then(function(data) {
-                resolve({
-                    wins: getNumberOfWins(data, fifa_code),
-                    goals: getNumberOfGoals(data, fifa_code)
-                });
-            });
-    });
+var getCountryStats = function(data, fifa_code) {
+    return {
+        wins: getNumberOfWins(data, fifa_code),
+        goals: getNumberOfGoals(data, fifa_code)
+    };
 };
 
 module.exports = getCountryStats

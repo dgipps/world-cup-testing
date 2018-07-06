@@ -1,5 +1,9 @@
 "use strict";
 
+const matches = require('../realtime/matches-api');
+const getCountryStats = require('../realtime/world-cup-stats');
+const _ = require('lodash');
+
 var TeamCtrl = function(Team){
 
 	var TeamObj = {};
@@ -18,12 +22,20 @@ var TeamCtrl = function(Team){
 	}
 
 	TeamObj.GetTeam = function(req, res, next){
-		Team.find().exec(function(err, Teams){
-			if(err) {
+		Team.find().exec(function(err, returnedTeams) {
+		    if(err) {
 				res.status(400)
                 return
             }
-			res.json({teams: Teams});
+            matches.getMatches()
+                .then(function(data) {
+                    var teamsWithStats = _.map(returnedTeams, function(team) {
+                        var teamJSON = team.toJSON();
+                        teamJSON.stats = getCountryStats(data, team.fifa_code);
+                        return teamJSON;
+                    });
+			        res.json({teams: teamsWithStats});
+                });
 		});
 	}
 

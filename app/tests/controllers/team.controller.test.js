@@ -8,6 +8,7 @@ var should = require('should'),
 require('sinon-mongoose');
 
 var TeamModel = require('../../models/team.model');
+var matches = require('../../realtime/matches-api');
 
 describe('TeamController testing', function () {
 	var sandbox;
@@ -42,21 +43,26 @@ describe('TeamController testing', function () {
 
 	describe('Get all Team test', function () {
 		it('Should call find once', function (done) {
+		    sandbox.stub(matches, 'getMatches')
+                .returns(new Promise(function(resolve, reject) {
+                    resolve([])
+                }))
+
 			var teamMock = sandbox.mock(TeamModel)
 				.expects('find')
 				.chain('exec')
 				.yields(null, []);
 
 			var req = {}, next = {};
-			var JSONspy = sandbox.spy();
-			var res = { json: JSONspy };
+			var responseJSON = function(payload) {
+			    teamMock.verify();
+			    expect(payload).to.deep.equal({teams: []});
+			    done()
+            }
+			var res = { json: responseJSON };
 
 			var TeamController = require('../../controllers/team.controller')(TeamModel);
 			TeamController.GetTeam(req, res, next);
-
-			teamMock.verify();
-			expect(JSONspy.calledWith({teams: []})).to.be.true;
-			done()
 		});
 	});
 });
