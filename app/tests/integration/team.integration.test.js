@@ -9,7 +9,7 @@ request = request(app);
 var expect = chai.expect;
 
 describe('Team API tests', function() {
-    before((done) => {
+    beforeEach((done) => {
         mongoose.connection.db.dropDatabase(() => {
             console.log('Setup - test database dropped');
         });
