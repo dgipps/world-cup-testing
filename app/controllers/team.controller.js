@@ -8,6 +8,7 @@ var TeamCtrl = function(Team){
 		var newTeam = new Team(req.body);
 		newTeam.save(function(err, Team){
 			if(err){
+				res.status(400)
 				res.json({error: err.message});
 				return;
 			}

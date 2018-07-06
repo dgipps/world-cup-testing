@@ -19,6 +19,16 @@ describe('TeamController testing', function () {
 		sandbox.restore();
 	});
 
+	describe('Team Validation test', function() {
+		it('Should not accept no country', function () {
+			const team = new TeamModel({
+				fifa_code:   'ISL',
+				group_id: 4,
+				group_letter: 'D',
+			});
+        });
+	});
+
 	describe('Team Post test', function () {
 		it('Should call save only once', function () {
 			var saveStub = sandbox.stub();
@@ -38,28 +48,6 @@ describe('TeamController testing', function () {
 			TeamController.PostTeam(req, res, next);
 			sinon.assert.calledOnce(saveStub);
 		});
-
-		it('Should save team', function (done) {
-			var teamMock = sandbox.mock(new TeamModel({
-				country:  'Iceland',
-				fifa_code:   'ISL',
-				group_id: 4,
-				group_letter: 'D',
-			}));
-			var team = teamMock.object;
-
-			teamMock
-			.expects('save')
-			.yields(null, 'SAVED');
-
-			team.save(function(err, result) {
-				teamMock.verify();
-				teamMock.restore();
-				should.equal('SAVED', result, "Test fails due to unexpected result");
-				done();
-			});
-		});
-
 	});
 
 	describe('Get all Team test', function () {
