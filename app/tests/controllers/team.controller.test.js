@@ -19,16 +19,6 @@ describe('TeamController testing', function () {
 		sandbox.restore();
 	});
 
-	describe('Team Validation test', function() {
-		it('Should not accept no country', function () {
-			const team = new TeamModel({
-				fifa_code:   'ISL',
-				group_id: 4,
-				group_letter: 'D',
-			});
-        });
-	});
-
 	describe('Team Post test', function () {
 		it('Should call save only once', function () {
 			var saveStub = sandbox.stub();
