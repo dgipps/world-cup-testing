@@ -21,9 +21,9 @@ describe('TeamController testing', function () {
 
 	describe('Team Post test', function () {
 		it('Should call save only once', function () {
-			var saveStub = sandbox.stub();
+			var saveSpy = sandbox.spy();
 			function Team(){
-				this.save = saveStub
+				this.save = saveSpy
 			}
 			var req = {
 				body: {
@@ -36,7 +36,7 @@ describe('TeamController testing', function () {
 			var res = {}, next = {};
 			var TeamController = require('../../controllers/team.controller')(Team);
 			TeamController.PostTeam(req, res, next);
-			sinon.assert.calledOnce(saveStub);
+			sinon.assert.calledOnce(saveSpy);
 		});
 	});
 
